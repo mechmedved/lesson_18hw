@@ -7,6 +7,34 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <bean id="maximum" class="ru.maxima.radio_di.MaximumFM">
 
+    </bean>
+
+    <bean id="retro" class="ru.maxima.radio_di.RetroFM">
+
+    </bean>
+
+    <bean id="ultra" class="ru.maxima.radio_di.UltraFM">
+
+    </bean>
+
+    <context:property-placeholder location="player.properties"/>
+
+    <bean id="radioPlayer" class="ru.maxima.radio_di.RadioPlayer"
+          scope="prototype"
+          init-method="onStart"
+          destroy-method="onEnd">
+
+        <constructor-arg name="name" value="${radioPlayer.name}"/>
+        <constructor-arg name="volume" value="${radioPlayer.volume}"/>
+        <constructor-arg>
+            <list>
+                <ref bean="maximum"/>
+                <ref bean="retro"/>
+                <ref bean="ultra"/>
+            </list>
+        </constructor-arg>
+    </bean>
 
 </beans>
